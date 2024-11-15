@@ -64,7 +64,7 @@ function Sign() {
               required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -82,7 +82,7 @@ function Sign() {
               required
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -100,7 +100,7 @@ function Sign() {
               required
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -118,7 +118,7 @@ function Sign() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -136,7 +136,7 @@ function Sign() {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-2xl  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -153,11 +153,11 @@ function Sign() {
             </button>
           </div>
         </form>
-        <p className="login-text mt-4 text-center text-gray-600">
+        <p className="login-text mt-4 text-2xl text-center text-gray-600">
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-blue-500 hover:underline focus:ring-2 focus:ring-blue-500"
+            className="text-blue-500 text-2xl hover:underline focus:ring-2 focus:ring-blue-500"
           >
             Login here
           </Link>
