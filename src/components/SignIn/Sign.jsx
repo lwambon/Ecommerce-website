@@ -1,8 +1,5 @@
-
 function Sign() {
-  return (
-    <div>Sign</div>
-  )
+  return <div>Sign</div>;
 }
 
-export default Sign
+export default Sign;
