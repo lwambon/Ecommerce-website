@@ -1,0 +1,60 @@
+.hero-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+    url("../src/assets/hero.jpg");
+  background-position: bottom;
+  object-fit: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  text-align: center;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  color: white;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1.6rem;
+  color: #47e91e;
+  text-transform: uppercase;
+}
+
+.hero-description {
+  font-size: 2rem;
+  margin-bottom: 2.4rem;
+  color: white;
+  text-transform: capitalize;
+}
+
+.button-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3.2rem;
+}
+
+.shop-button {
+  font-size: 1.5rem;
+  padding: 12px 24px;
+  font-weight: bold;
+  text-transform: capitalize;
+  background-color: #fbbf24;
+  color: black;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.shop-button a {
+  color: black;
+  text-decoration: none;
+}
+
+.shop-button:hover {
+  background-color: #ca8a04;
+}

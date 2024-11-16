@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
   const [emailAddress, setEmailAddress] = useState("");
@@ -36,17 +37,12 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-1/2 ">
-        <h2 className="text-center text-4xl font-bold capitalize text-gray-800 mb-6">
-          Login to your account
-        </h2>
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="inputs-details">
-            <label
-              htmlFor="emailAddress"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Login to your account</h2>
+        <form onSubmit={handleLogin} className="form">
+          <div className="input-group">
+            <label htmlFor="emailAddress" className="input-label">
               Email Address
             </label>
             <input
@@ -56,15 +52,12 @@ function Login() {
               required
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
-              className="w-full px-12 py-4 text-1xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          <div className="inputs-details">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+          <div className="input-group">
+            <label htmlFor="password" className="input-label">
               Password
             </label>
             <input
@@ -74,30 +67,22 @@ function Login() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-12 py-4  text-1xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          {formError && (
-            <p className="text-red-600 text-sm mt-2">{formError}</p>
-          )}
+          {formError && <p className="error-message">{formError}</p>}
 
           <div className="signin-submit">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-2xl text-white py-3 rounded-lg hover:bg-blue-600 transition-all duration-300"
-            >
+            <button type="submit" className="submit-btn">
               Login
             </button>
           </div>
         </form>
 
-        <p className="login-text mt-4 text-center text-gray-600">
+        <p className="signup-text">
           Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="text-blue-500 hover:underline focus:ring-2 focus:ring-blue-500"
-          >
+          <Link to="/signup" className="signup-link">
             Sign up here
           </Link>
         </p>

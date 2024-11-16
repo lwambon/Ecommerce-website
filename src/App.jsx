@@ -8,7 +8,7 @@ import Contact from "./pages/Contact/Contact";
 import Logout from "./pages/Logout/Logout";
 import Products from "./pages/Products/Products";
 import Login from "./components/Login/Login";
-import Sign from "./components/SignIn/Sign";
+import Sign from "./components/Sign/Sign";
 
 //const client = new QueryClient();
 

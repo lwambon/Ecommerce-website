@@ -1,0 +1,99 @@
+.sign-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6;
+  margin-top: 6rem;
+}
+.sign-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 2.4rem;
+}
+.sign-card {
+  background-color: white;
+  box-shadow: 0 0 8px;
+  border-radius: 1rem;
+  padding: 3rem;
+  width: 60rem;
+  margin: 4rem auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+.input-field {
+  padding: 12px;
+  font-size: 1.125rem;
+  border: 2px solid #edf2f7;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: #3182ce;
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 8px;
+}
+
+.submit-container {
+  margin-top: 24px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #2b6cb0;
+}
+
+.login-text {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: #4a5568;
+  text-align: center;
+}
+
+.login-link {
+  font-size: 1rem;
+  color: #3182ce;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}

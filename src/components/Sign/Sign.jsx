@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import "./Sign.css";
 
 function Sign() {
   const [firstName, setFirstName] = useState("");
@@ -13,9 +14,10 @@ function Sign() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    h;
     if (password !== confirmPassword) {
-      setFormError("Passwords do not match");
-      toast.error("Passwords do not match", {
+      setFormError("Passwords do not match.");
+      toast.error("Passwords do not match.", {
         position: "bottom-center",
         autoClose: 3000,
         theme: "colored",
@@ -30,6 +32,7 @@ function Sign() {
       emailAddress,
       password,
     });
+
     toast.success("Account created successfully!", {
       position: "bottom-center",
       autoClose: 3000,
@@ -44,17 +47,12 @@ function Sign() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-1/2 ">
-        <h2 className="text-center text-3xl font-bold capitalize text-gray-800 mb-6">
-          Create your account here
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="inputs-details">
-            <label
-              htmlFor="firstName"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+    <div className="sign-container">
+      <div className="sign-card">
+        <h2 className="sign-title">Create your account here</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="firstName" className="input-label">
               First Name
             </label>
             <input
@@ -64,15 +62,12 @@ function Sign() {
               required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          <div className="inputs-details">
-            <label
-              htmlFor="lastName"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+          <div className="input-group">
+            <label htmlFor="lastName" className="input-label">
               Last Name
             </label>
             <input
@@ -82,15 +77,12 @@ function Sign() {
               required
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          <div className="inputs-details">
-            <label
-              htmlFor="emailAddress"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+          <div className="input-group">
+            <label htmlFor="emailAddress" className="input-label">
               Email Address
             </label>
             <input
@@ -100,15 +92,12 @@ function Sign() {
               required
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
-              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          <div className="inputs-details">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+          <div className="input-group">
+            <label htmlFor="password" className="input-label">
               Password
             </label>
             <input
@@ -118,15 +107,12 @@ function Sign() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 text-2xl border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          <div className="inputs-details">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-gray-700 font-medium mb-2 text-2xl"
-            >
+          <div className="input-group">
+            <label htmlFor="confirmPassword" className="input-label">
               Confirm Password
             </label>
             <input
@@ -136,29 +122,22 @@ function Sign() {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 text-2xl  border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="input-field"
             />
           </div>
 
-          {formError && (
-            <p className="text-red-600 text-sm mt-2">{formError}</p>
-          )}
+          {formError && <p className="error-message">{formError}</p>}
 
           <div className="signin-submit">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-2xl text-white py-3 rounded-lg hover:bg-blue-600 transition-all duration-300"
-            >
+            <button type="submit" className="submit-btn">
               Create Account
             </button>
           </div>
         </form>
-        <p className="login-text mt-4 text-2xl text-center text-gray-600">
+
+        <p className="login-text">
           Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-blue-500 text-2xl hover:underline focus:ring-2 focus:ring-blue-500"
-          >
+          <Link to="/login" className="login-link">
             Login here
           </Link>
         </p>
