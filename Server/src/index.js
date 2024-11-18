@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import { registerUsers } from "./controllers/users.controllers.js";
 import validateUserInfo from "./middleware/valiidateUsersInfo.js";
+import { loginUsers } from "./controllers/auth.controllers.js";
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(
 const Client = new PrismaClient();
 
 app.post("/users", validateUserInfo, registerUsers);
+app.post("/auth/login", loginUsers);
 
 app.listen(4000, () => {
   console.log("Server running successfully");
