@@ -1,6 +1,6 @@
-// App.js
 import "./App.css";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
 import Cart from "./pages/Cart/Cart";
@@ -10,7 +10,7 @@ import Products from "./pages/Products/Products";
 import Login from "./components/Login/Login";
 import Sign from "./components/Sign/Sign";
 
-//const client = new QueryClient();
+const client = new QueryClient();
 
 function Main() {
   const location = useLocation();
@@ -35,11 +35,12 @@ function Main() {
 }
 function App() {
   return (
-    <BrowserRouter>
-      {/* <Header /> */}
-      {/* <Navbar/> */}
-      <Main />
-    </BrowserRouter>
+    <QueryClientProvider client={client}>
+      <BrowserRouter>
+        {/* <Header /> */}
+        <Main />
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 

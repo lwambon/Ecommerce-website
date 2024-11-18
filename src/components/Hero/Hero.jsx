@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./Hero.css"; // Import the CSS file
+import "./Hero.css";
 
 function Hero() {
   return (
@@ -11,10 +11,10 @@ function Hero() {
         </p>
         <div className="button-container">
           <button className="shop-button">
-            <Link to="/sign-up">Shop Men</Link>
+            <Link to="./sign up">Shop Men</Link>
           </button>
           <button className="shop-button">
-            <Link to="/sign-up">Shop Women</Link>
+            <Link to="./sign up">Shop Women</Link>
           </button>
         </div>
       </div>
