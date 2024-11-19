@@ -4,6 +4,7 @@ import cors from "cors";
 import { registerUsers } from "./controllers/users.controllers.js";
 import validateUserInfo from "./middleware/valiidateUsersInfo.js";
 import { loginUsers } from "./controllers/auth.controllers.js";
+import { ProductsClothes } from "./controllers/clothes.controllers.js";
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,9 @@ const Client = new PrismaClient();
 
 app.post("/users", validateUserInfo, registerUsers);
 app.post("/auth/login", loginUsers);
+
+//creating products according to categories
+app.post("/products", ProductsClothes);
 
 app.listen(4000, () => {
   console.log("Server running successfully");

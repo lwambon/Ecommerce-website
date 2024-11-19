@@ -20,6 +20,19 @@ model Users{
   emailAddress String @unique
   phoneNumber String
   password String
+  
 
   @@map ("user")
 }
+
+model Clothes {
+  id               Int      @id @default(autoincrement())
+  ProductName      String
+  productCategory  String
+  ProductPrice     Float
+  ProductImageUrl  String
+  createdAt        DateTime @default(now())
+
+  @@map ("clothes")
+}
+
