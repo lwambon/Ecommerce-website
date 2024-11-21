@@ -1,44 +1,56 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./pages/Home/Home";
-import Header from "./components/Header/Header";
+
 import Cart from "./pages/Cart/Cart";
-import Contact from "./pages/Contact/Contact";
-import Logout from "./pages/Logout/Logout";
+import Profile from "./pages/Profile/Profile";
 import Products from "./pages/Products/Products";
+import Logout from "./pages/Logout/Logout";
 import Login from "./components/Login/Login";
 import Sign from "./components/Sign/Sign";
+import ShopCategory from "./pages/ShopCategory/ShopCategory";
+import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import men_banner from "./assets/MensBanner.jpg";
+import women_banner from "./assets/Womenbanner.jpg";
+import kids_banner from "./assets/KidsBanner.jpg";
 
 const client = new QueryClient();
 
-function Main() {
-  const location = useLocation();
-  return (
-    <>
-      {!location.pathname.startsWith("/product") &&
-        location.pathname !== "/cart" &&
-        location.pathname !== "/contact" &&
-        location.pathname !== "/product" &&
-        location.pathname !== "/logout" && <Header />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/product" element={<Products />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/sign up" element={<Sign />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </>
-  );
-}
 function App() {
   return (
     <QueryClientProvider client={client}>
       <BrowserRouter>
-        {/* <Header /> */}
-        <Main />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:productId" element={<Products />} />
+          <Route
+            path="/men"
+            element={<ShopCategory banner={men_banner} ProductCategory="Men" />}
+          />
+          <Route
+            path="/ladies"
+            element={
+              <ShopCategory banner={women_banner} ProductCategory="Women" />
+            }
+          />
+          <Route
+            path="/kids"
+            element={
+              <ShopCategory banner={kids_banner} ProductCategory="Kids" />
+            }
+          />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/sign up" element={<Sign />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+
+        <Footer />
       </BrowserRouter>
     </QueryClientProvider>
   );

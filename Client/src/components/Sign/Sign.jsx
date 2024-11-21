@@ -131,7 +131,6 @@ function Sign() {
               required
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              pattern="^\+?[0-9\s\-()]{7,15}$"
               className="input-field"
             />
           </div>
