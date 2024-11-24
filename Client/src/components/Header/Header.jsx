@@ -50,13 +50,15 @@ function Header({ user, handleLogout }) {
               </Link>
             </li>
             <li className="header-item">
-              <button
-                onClick={handleLogout}
-                className="header-link header-icon"
-              >
-                <FaSignOutAlt className="icon" />
-                Logout
-              </button>
+              <Link to="/">
+                <button
+                  onClick={handleLogout}
+                  className="header-link header-icon"
+                >
+                  <FaSignOutAlt className="icon" />
+                  Logout
+                </button>
+              </Link>
             </li>
           </div>
         </ul>

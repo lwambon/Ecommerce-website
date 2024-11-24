@@ -103,27 +103,27 @@ function ProfileInformation() {
       setProfilePicture(storedUser.profilePicture || null);
       setFirstName(storedUser.firstName || "");
       setLastName(storedUser.lastName || "");
-      setUserName(storedUser.userName || "");
+      setPhoneNumber(storedUser.phoneNumber || "");
       setEmailAddress(storedUser.emailAddress || "");
     } else if (user) {
       setProfilePicture(user.profilePicture || null);
       setFirstName(user.firstName || "");
       setLastName(user.lastName || "");
-      setUserName(user.userName || "");
+      setPhoneNumber(user.phoneNumber || "");
       setEmailAddress(user.emailAddress || "");
     }
   }, [user]);
 
   function handleUpdateProfileInformation(e) {
     e.preventDefault();
-    if (!firstName || !lastName || !userName || !emailAddress) {
+    if (!firstName || !lastName || !emailAddress || !phoneNumber) {
       return toast.error("All fields are required", {
         theme: "colored",
         duration: 3000,
       });
     }
 
-    mutate({ profilePicture, firstName, lastName, userName, emailAddress });
+    mutate({ profilePicture, firstName, lastName, phoneNumber, emailAddress });
   }
 
   return (
@@ -175,15 +175,15 @@ function ProfileInformation() {
             />
           </div>
           <div className="input-section">
-            <label htmlFor="userName">User Name</label>
+            <label htmlFor="phoneNumber">Phone Number</label>
             <input
               type="text"
-              id="userName"
+              id="phoneNumber"
               className="input-details"
-              placeholder="User Name"
+              placeholder="Phone Number"
               required
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
           <div className="input-section">
