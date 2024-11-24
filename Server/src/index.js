@@ -8,7 +8,7 @@ import {
 } from "./controllers/users.controllers.js";
 import validateUserInfo from "./middleware/valiidateUsersInfo.js";
 import verifyToken from "./middleware/verifyToken.js";
-import { loginUsers } from "./controllers/auth.controllers.js";
+import { loginUsers, updatePassword } from "./controllers/auth.controllers.js";
 
 const app = express();
 app.use(express.json());
@@ -22,10 +22,10 @@ app.use(
   }),
 );
 
-const Client = new PrismaClient();
-
 app.post("/users", validateUserInfo, registerUsers);
 app.post("/auth/login", loginUsers);
+// updating passwords
+app.patch("/auth/password", verifyToken, updatePassword);
 // Update user information
 app.put("/users/:userId", verifyToken, updateUserInformation);
 
