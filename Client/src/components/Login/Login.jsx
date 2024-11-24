@@ -60,7 +60,7 @@ function Login() {
 
         setEmailAddress("");
         setPassword("");
-        navigate("/profile");
+        navigate("/products");
       },
       onError: (error) => {
         toast.error(error.message || "Something went wrong.", {

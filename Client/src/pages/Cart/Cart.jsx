@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Cart.css";
+import Header from "../../components/Header/Header";
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -12,21 +13,24 @@ function Cart() {
   }, []);
 
   return (
-    <div className="cart">
-      <h1>Your Cart</h1>
-      {cart.length > 0 ? (
-        <div className="cart-items">
-          {cart.map((item, index) => (
-            <div key={index} className="cart-item">
-              <img src={item.image} alt={item.title} />
-              <h3>{item.title}</h3>
-              <p>Price: ${item.price}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
+    <div>
+      <Header />
+      <div className="cart">
+        <h1>Your Cart</h1>
+        {cart.length > 0 ? (
+          <div className="cart-items">
+            {cart.map((item, index) => (
+              <div key={index} className="cart-item">
+                <img src={item.image} alt={item.title} />
+                <h3>{item.title}</h3>
+                <p>Price: ${item.price}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>Your cart is empty.</p>
+        )}
+      </div>
     </div>
   );
 }

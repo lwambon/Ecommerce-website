@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Products.css";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import Header from "../../components/Header/Header";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -59,47 +60,50 @@ function Products() {
   };
 
   return (
-    <div className="products">
-      <h1>Products</h1>
-      <div className="product-list">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.title} />
-            <h2>{product.title}</h2>
-            <p>{product.description}</p>
-            <div className="products-price">
-              <p>Price: ${product.price}</p>
-              <p>Rating: {product.rating}</p>
-            </div>
-            <div className="products-brand">
-              <p>Brand: {product.brand}</p>
-              <p>Category: {product.category}</p>
-            </div>
+    <div>
+      <Header />
+      <div className="products">
+        <h1>Products</h1>
+        <div className="product-list">
+          {products.map((product) => (
+            <div key={product.id} className="product-card">
+              <img src={product.image} alt={product.title} />
+              <h2>{product.title}</h2>
+              <p>{product.description}</p>
+              <div className="products-price">
+                <p>Price: ${product.price}</p>
+                <p>Rating: {product.rating}</p>
+              </div>
+              <div className="products-brand">
+                <p>Brand: {product.brand}</p>
+                <p>Category: {product.category}</p>
+              </div>
 
-            <div className="product-reviews">
-              <h3 className="reviews">Reviews</h3>
-              {product.reviews.map((review, index) => (
-                <div key={index} className="review">
-                  <p style={{ color: "red", fontSize: "1.2rem" }}>
-                    <strong>{review.reviewerName}</strong> ({review.rating}{" "}
-                    {renderStars(review.rating)})
-                  </p>
-                  <p>{review.comment}</p>
-                  <p>
-                    <em>{new Date(review.date).toLocaleDateString()}</em>
-                  </p>
-                </div>
-              ))}
-            </div>
+              <div className="product-reviews">
+                <h3 className="reviews">Reviews</h3>
+                {product.reviews.map((review, index) => (
+                  <div key={index} className="review">
+                    <p style={{ color: "red", fontSize: "1.2rem" }}>
+                      <strong>{review.reviewerName}</strong> ({review.rating}{" "}
+                      {renderStars(review.rating)})
+                    </p>
+                    <p>{review.comment}</p>
+                    <p>
+                      <em>{new Date(review.date).toLocaleDateString()}</em>
+                    </p>
+                  </div>
+                ))}
+              </div>
 
-            <button
-              onClick={() => addToCart(product)}
-              className="add-to-cart-button"
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
+              <button
+                onClick={() => addToCart(product)}
+                className="add-to-cart-button"
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

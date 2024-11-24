@@ -1,4 +1,5 @@
 import "./App.css";
+import { useLocation } from "react-router-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./pages/Home/Home";
@@ -9,27 +10,42 @@ import Navbar from "./components/Navbar/Navbar";
 import Products from "./pages/Products/Products";
 import Fragrance from "./pages/Fragrance/Fragrance";
 import Beauty from "./pages/Beauty/Beauty";
+import Profile from "./pages/Profile/Profile";
 import Furniture from "./pages/Furniture/Furniture";
 import Groceries from "./pages/Groceries/Groceries";
 
 const client = new QueryClient();
 
+function Main() {
+  const location = useLocation();
+  return (
+    <>
+      {!location.pathname.startsWith("/products") &&
+        location.pathname !== "/fragrance" &&
+        location.pathname !== "/beauty" &&
+        location.pathname !== "/furniture" &&
+        location.pathname !== "/groceries" &&
+        location.pathname !== "/profile" && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/fragrance" element={<Fragrance />} />
+        <Route path="/beauty" element={<Beauty />} />
+        <Route path="/furniture" element={<Furniture />} />
+        <Route path="/groceries" element={<Groceries />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/sign up" element={<Sign />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={client}>
       <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/fragrance" element={<Fragrance />} />
-          <Route path="/beauty" element={<Beauty />} />
-          <Route path="/furniture" element={<Furniture />} />
-          <Route path="/groceries" element={<Groceries />} />
-          <Route path="/sign up" element={<Sign />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-
+        <Main />
         <Footer />
       </BrowserRouter>
     </QueryClientProvider>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import Header from "../../components/Header/Header";
 
 function Fragrance() {
   const [products, setProducts] = useState([]);
@@ -56,64 +57,67 @@ function Fragrance() {
   };
 
   return (
-    <div className="products">
-      <h1>Fragrance Products</h1>
-      <div className="product-list">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.title} />
-            <h2>{product.title}</h2>
-            <p>{product.description}</p>
-            <div className="products-price">
-              <p>Price: ${product.price}</p>
-              <p>Rating: {product.rating}</p>
-            </div>
-            <div className="products-brand">
-              <p>Brand: {product.brand}</p>
-              <p>Category: {product.category}</p>
-            </div>
+    <div>
+      <Header />
+      <div className="products">
+        <h1>Fragrance Products</h1>
+        <div className="product-list">
+          {products.map((product) => (
+            <div key={product.id} className="product-card">
+              <img src={product.image} alt={product.title} />
+              <h2>{product.title}</h2>
+              <p>{product.description}</p>
+              <div className="products-price">
+                <p>Price: ${product.price}</p>
+                <p>Rating: {product.rating}</p>
+              </div>
+              <div className="products-brand">
+                <p>Brand: {product.brand}</p>
+                <p>Category: {product.category}</p>
+              </div>
 
-            <div className="product-reviews">
-              <h3 className="reviews">Reviews</h3>
-              {product.reviews.map((review, index) => (
-                <div key={index} className="review">
-                  <p style={{ color: "red", fontSize: "1.2rem" }}>
-                    <strong>{review.reviewerName}</strong> ({review.rating}{" "}
-                    {renderStars(review.rating)})
-                  </p>
-                  <p>{review.comment}</p>
-                  <p>
-                    <em>{new Date(review.date).toLocaleDateString()}</em>
-                  </p>
+              <div className="product-reviews">
+                <h3 className="reviews">Reviews</h3>
+                {product.reviews.map((review, index) => (
+                  <div key={index} className="review">
+                    <p style={{ color: "red", fontSize: "1.2rem" }}>
+                      <strong>{review.reviewerName}</strong> ({review.rating}{" "}
+                      {renderStars(review.rating)})
+                    </p>
+                    <p>{review.comment}</p>
+                    <p>
+                      <em>{new Date(review.date).toLocaleDateString()}</em>
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => addToCart(product)}
+                className="add-to-cart-button"
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="cart">
+          <h2>Cart</h2>
+          {cart.length > 0 ? (
+            <div className="cart-items">
+              {cart.map((item, index) => (
+                <div key={index} className="cart-item">
+                  <img src={item.image} alt={item.title} />
+                  <h3>{item.title}</h3>
+                  <p>Price: ${item.price}</p>
                 </div>
               ))}
             </div>
-
-            <button
-              onClick={() => addToCart(product)}
-              className="add-to-cart-button"
-            >
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <div className="cart">
-        <h2>Cart</h2>
-        {cart.length > 0 ? (
-          <div className="cart-items">
-            {cart.map((item, index) => (
-              <div key={index} className="cart-item">
-                <img src={item.image} alt={item.title} />
-                <h3>{item.title}</h3>
-                <p>Price: ${item.price}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="cart-products">Your cart is empty.</p>
-        )}
+          ) : (
+            <p className="cart-products">Your cart is empty.</p>
+          )}
+        </div>
       </div>
     </div>
   );

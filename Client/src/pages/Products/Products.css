@@ -110,3 +110,18 @@
 .review p {
   margin: 0.5rem 0;
 }
+
+.add-to-cart-button {
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  background-color: coral;
+  width: 10rem;
+  border: none;
+  padding: 0.5rem;
+}
+
+.add-to-cart-button:hover {
+  background-color: #e55b00;
+}
