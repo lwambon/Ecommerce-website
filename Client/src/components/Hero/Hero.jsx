@@ -1,28 +1,23 @@
-import HandIcon from "../../assets/hand-icon.png";
-import HeroImage from "../../assets/l15.jpg";
-import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import "./Hero.css";
+import HeroVideo from "../../assets/video2.mp4";
 
 function Hero() {
   return (
     <div className="hero-container">
-      <div className="hero-right">
-        <h2 className="hero-text">new arrivals</h2>
-        <div className="hand-icon">
-          <p>new</p>
-          <img src={HandIcon} alt="" className="hand-con" />
-        </div>
-        <div className="new-collection">
-          <p>collections</p>
-          <p>for everyone</p>
-        </div>
-        <button className="latest-collection">
-          latest collection
-          <FaArrowRight />
-        </button>
-      </div>
-      <div className="hero-left">
-        <img src={HeroImage} alt="" className="hero-image" />
+      <video autoPlay loop muted className="hero-video">
+        <source src={HeroVideo} type="video/mp4" />
+      </video>
+      <div className="hero-overlay">
+        <h1 className="hero-title"> welcome to Radiant Touch</h1>
+        <p className="hero-subtitle">
+          Unveil a world of luxury and quality. From beauty essentials to home
+          decor, explore our curated collection that promises to elevate your
+          lifestyle.
+        </p>
+        <Link to="/sign up" className="explore-button">
+          Start Your Journey
+        </Link>
       </div>
     </div>
   );

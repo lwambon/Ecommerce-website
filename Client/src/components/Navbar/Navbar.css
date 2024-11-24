@@ -1,156 +1,121 @@
 .navbar {
-  background-color: #faf8f1;
-  position: relative;
   width: 100%;
-  top: 0;
-  z-index: 10;
-  padding: 1.6rem 0;
-}
-
-.navbar-container {
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, hsl(297, 22%, 79%), #e4fabb22, 60%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 120rem;
-  margin: 0 auto;
-  padding: 0 2rem;
+  position: relative;
+  z-index: 10;
 }
 
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
 
 .logo-container {
-  display: flex;
-  align-items: center;
-  gap: 4rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff6f61;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
 }
-
-.logo {
-  width: 16rem;
-  height: 8rem;
-  border-radius: 50%;
-  border: none;
-}
-
 
 .navbar-links {
   display: flex;
+  gap: 1.5rem;
   list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-links.open {
+  flex-direction: column;
+  background: linear-gradient(to right, #fde1ff, #e1ffea22);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-item {
-  list-style: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
 .navbar-link {
-  font-size: 1.8rem;
-  gap: 2rem;
-  font-weight: 500;
-  color: #4b5563;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.navbar-link button:hover {
-  background-color: #333;
-  color: #ff9900;
-}
-
-.sign-area {
-  margin-right: 1.6rem;
-}
-
-.sign-area button {
-  background-color: #f7ab54;
   color: #333;
-  font-size: 1.8rem;
-  padding: 0.8rem 1.6rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-transform: capitalize;
-  transition: background-color 0.3s ease;
-}
-
-.sign-area button:hover {
-  background-color: #ff9900;
-  color: #333;
-}
-
-.sign-area .navbar-link {
-  color: white;
   text-decoration: none;
+  transition: color 0.3s ease-in-out;
 }
 
+.navbar-link:hover {
+  color: #ff6f61;
+}
+
+.welcome-message {
+  color: #444;
+  font-weight: bold;
+}
 
 .navbar-right {
   display: flex;
+  gap: 1.5rem;
   align-items: center;
-  gap: 1.6rem;
 }
 
 .cart-link {
   position: relative;
-  display: flex;
-  align-items: center;
+  font-size: 1.2rem;
+  color: #333;
 }
 
 .cart-icon {
-  font-size: 2.4rem;
-  color: #4b5563;
-  transition: color 0.3s ease;
+  font-size: 1.5rem;
+  color: #333;
+  transition: color 0.3s ease-in-out;
 }
 
-.cart-link:hover .cart-icon {
-  color: #fbbf24;
+.cart-icon:hover {
+  color: #ff6f61;
 }
 
 .cart-badge {
   position: absolute;
   top: -8px;
-  right: -8px;
-  background-color: #f87171;
-  color: white;
+  right: -12px;
+  background-color: #ff6f61;
+  color: #fff;
   border-radius: 50%;
-  font-size: 1.2rem;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
-.navbar-icon {
-  font-size: 2.4rem;
-  color: #4b5563;
-}
-
-.navbar-icon:hover {
-  color: #ff9900;
-}
-
-/* Hamburger Menu */
 .hamburger {
   display: none;
   cursor: pointer;
 }
 
-/* Mobile Responsive Styles 
-@media (max-width: 768px) {
-  .navbar-container {
-    flex-wrap: wrap;
-  }
+.hamburger svg {
+  color: #ff6f61;
+}
 
+.hamburger:hover svg {
+  color: #ff3d34;
+}
+
+@media screen and (max-width: 768px) {
   .navbar-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #faf8f1;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 0;
     display: none;
   }
 
@@ -158,16 +123,7 @@
     display: flex;
   }
 
-  .navbar-item {
-    margin: 1rem 0;
-  }
-
   .hamburger {
     display: block;
-    color: #4b5563;
-  }
-
-  .navbar-right {
-    display: none;
   }
 }

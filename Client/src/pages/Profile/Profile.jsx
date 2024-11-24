@@ -1,5 +1,11 @@
+import ProfileInformation from "../../components/ProfileInformationUpdate/ProfileInformationUpdate";
+
 function Profile() {
-  return <div>Contact</div>;
+  return (
+    <div>
+      <ProfileInformation />
+    </div>
+  );
 }
 
 export default Profile;

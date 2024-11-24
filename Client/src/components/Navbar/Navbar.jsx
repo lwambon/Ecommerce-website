@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Eicon from "../../assets/zappy2.png";
-import useUserState from "../../Store/UserStore";
+import useUserState from "../../store/userStore";
 import {
   FaShoppingCart,
   FaSignOutAlt,
@@ -21,54 +20,60 @@ function Navbar() {
   const handleLogout = () => {
     logoutUser();
   };
+
   return (
     <div className="navbar">
       <nav className="navbar-container">
         <div className="logo-container">
-          <img className="logo" src={Eicon} alt="Logo" />
+          <Link className="logo" to="/">
+            Radiant touch
+          </Link>
         </div>
 
         <ul className={`navbar-links ${isMenuOpen ? "open" : ""}`}>
           <li className="navbar-item">
             <Link to="/" className="navbar-link">
-              Shop
+              Home
             </Link>
           </li>
           <li className="navbar-item">
-            <Link to="/men" className="navbar-link">
-              Men
+            <Link to="/products" className="navbar-link">
+              Products
             </Link>
           </li>
           <li className="navbar-item">
-            <Link to="/ladies" className="navbar-link">
-              Women
+            <Link to="/fragrance" className="navbar-link">
+              Fragrance
             </Link>
           </li>
           <li className="navbar-item">
-            <Link to="/kids" className="navbar-link">
-              Kids
+            <Link to="/beauty" className="navbar-link">
+              Beauty
             </Link>
           </li>
           <li className="navbar-item">
-            <Link to="/profile" className="navbar-link navbar-icon">
-              <FaUser className="icon" />
-              Profile
+            <Link to="/furniture" className="navbar-link">
+              Furniture
+            </Link>
+          </li>
+          <li className="navbar-item">
+            <Link to="/groceries" className="navbar-link">
+              Groceries
             </Link>
           </li>
           {user ? (
-            <Link to="/user">
-              <li>Hello {user.firstName}👋</li>
-            </Link>
+            <li className="navbar-item welcome-message">
+              Welcome, <strong>{user.firstName}</strong>! 🌸
+            </li>
           ) : (
-            <div className="sign-area">
-              <button>
-                <Link to="/sign up" className="navbar-link navbar-icon">
-                  sign in
-                </Link>
-              </button>
-            </div>
+            <li className="navbar-item">
+              <Link to="/sign up" className="navbar-link">
+                Sign In
+              </Link>
+            </li>
           )}
         </ul>
+
         <div className="navbar-right">
           <li className="navbar-item">
             <Link to="/cart" className="navbar-link cart-link">
@@ -76,17 +81,20 @@ function Navbar() {
               <span className="cart-badge">0</span>
             </Link>
           </li>
-          <li className="navbar-item">
-            <Link
-              onClick={handleLogout}
-              to="/"
-              className="navbar-link navbar-icon"
-            >
-              <FaSignOutAlt className="icon" />
-              Logout
-            </Link>
-          </li>
+          {user && (
+            <li className="navbar-item">
+              <Link
+                onClick={handleLogout}
+                to="/"
+                className="navbar-link navbar-icon"
+              >
+                <FaSignOutAlt className="icon" />
+                Logout
+              </Link>
+            </li>
+          )}
         </div>
+
         <div className="hamburger" onClick={toggleMenu}>
           {isMenuOpen ? <FaTimes size={30} /> : <FaBars size={30} />}
         </div>

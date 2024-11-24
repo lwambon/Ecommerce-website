@@ -1,5 +1,4 @@
 import "./Footer.css";
-import footerLogo from "../../assets/zappy.png";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
@@ -10,8 +9,7 @@ function Footer() {
   return (
     <div className="Footer">
       <div className="footer-logo-section">
-        <img src={footerLogo} alt="" />
-        <p className="footer-info">zappy cart</p>
+        <p className="footer-info">radiant Touch</p>
       </div>
       <ul>
         <li>Company</li>
