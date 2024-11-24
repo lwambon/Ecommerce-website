@@ -17,22 +17,30 @@ model Users{
   id String @default (uuid()) @id
   firstName String
   lastName String
+  profilePicture String?
   emailAddress String @unique
-  phoneNumber String
+  phoneNumber String @unique
   password String
-  
+  products Products []
 
   @@map ("user")
 }
 
-model Clothes {
+model Products {
   id               Int      @id @default(autoincrement())
-  ProductName      String
-  productCategory  String
-  ProductPrice     Float
-  ProductImageUrl  String
-  createdAt        DateTime @default(now())
+  title      String
+  description  String
+  category    Float
+  price  String
+  rating String
+  brand String
+  reviews String
+  CreatedAt DateTime @default (now())
+  owner String
+  user Users @relation(fields : [owner] ,references:[id])
 
-  @@map ("clothes")
+
+  @@map ("products")
 }
+
 

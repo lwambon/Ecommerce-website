@@ -26,6 +26,15 @@ const validateUserInfo = async (req, res, next) => {
         .json({ message: "Email address is already in use" });
     }
 
+    const userWithPhone = await prisma.users.findUnique({
+      where: { phoneNumber },
+    });
+    if (userWithPhone) {
+      return res
+        .status(400)
+        .json({ message: "Phone number is already in use" });
+    }
+
     next();
   } catch (error) {
     console.error("Error validating user info:", error);
