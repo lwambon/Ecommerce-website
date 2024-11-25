@@ -9,6 +9,13 @@ import {
 import validateUserInfo from "./middleware/valiidateUsersInfo.js";
 import verifyToken from "./middleware/verifyToken.js";
 import { loginUsers, updatePassword } from "./controllers/auth.controllers.js";
+import validateProduct from "./middleware/validateproduct.js";
+import {
+  createProduct,
+  getProducts,
+  addToCart,
+  getCartItemsByUser,
+} from "./controllers/products.controllers.js";
 
 const app = express();
 app.use(express.json());
@@ -29,8 +36,19 @@ app.patch("/auth/password", verifyToken, updatePassword);
 // Update user information
 app.put("/users/:userId", verifyToken, updateUserInformation);
 
+//creating a product
+app.post("/products", verifyToken, validateProduct, createProduct);
+
 // Creating products according to categories
-// app.post("/products", verifyToken, ProductsClothes);
+app.get("/products", getProducts);
+//adding items to cart
+app.post("/products/:userId", verifyToken, addToCart);
+
+//getting all products added to cart by user
+app.get("/products/:userId", verifyToken, getCartItemsByUser);
+
+//deleting items from cart
+//app.delete("/product/:ProductId",verifyToken,deleteCartItem)
 
 app.listen(4000, () => {
   console.log("Server running successfully");

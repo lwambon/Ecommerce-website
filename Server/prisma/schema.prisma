@@ -13,34 +13,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users{
-  id String @default (uuid()) @id
-  firstName String
-  lastName String
+model Users {
+  id            String     @default(uuid()) @id
+  firstName     String
+  lastName      String
   profilePicture String?
-  emailAddress String @unique
-  phoneNumber String @unique
-  password String
-  products Products []
+  emailAddress  String     @unique
+  phoneNumber   String     @unique
+  password      String
+  products      Products[]
+  carts         Cart[]     
 
-  @@map ("user")
+  @@map("user")
 }
 
 model Products {
-  id               Int      @id @default(autoincrement())
-  title      String
-  description  String
-  category    Float
-  price  String
-  rating String
-  brand String
-  reviews String
-  CreatedAt DateTime @default (now())
-  owner String
-  user Users @relation(fields : [owner] ,references:[id])
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  category    String
+  price       Float
+  rating      String
+  brand       String
+  reviews     String
+  createdAt   DateTime @default(now())
+  owner       String
+  user        Users    @relation(fields: [owner], references: [id])
+  carts       Cart[]   
 
-
-  @@map ("products")
+  @@map("products")
 }
 
+model Cart {
+  id          Int      @id @default(autoincrement())
+  userId      String   
+  productId   Int      
+  quantity    Int      @default(1)
+  createdAt   DateTime @default(now())
+  
+  user        Users    @relation(fields: [userId], references: [id])
+  product     Products @relation(fields: [productId], references: [id])
 
+  @@map("cart")
+}
