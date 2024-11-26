@@ -1,5 +1,4 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import {
@@ -15,6 +14,7 @@ import {
   getProducts,
   addToCart,
   getCartItemsByUser,
+  removeCartItem,
 } from "./controllers/products.controllers.js";
 
 const app = express();
@@ -45,10 +45,10 @@ app.get("/products", getProducts);
 app.post("/products/:userId", verifyToken, addToCart);
 
 //getting all products added to cart by user
-app.get("/products/:userId", verifyToken, getCartItemsByUser);
+app.get("/cart/:userId", verifyToken, getCartItemsByUser);
 
 //deleting items from cart
-//app.delete("/product/:ProductId",verifyToken,deleteCartItem)
+app.delete("/cart/:userId/products/:productId", verifyToken, removeCartItem);
 
 app.listen(4000, () => {
   console.log("Server running successfully");
