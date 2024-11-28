@@ -20,10 +20,18 @@
 }
 
 .logo-container {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1rem;
+  letter-spacing: 1px;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  display: flex;
+}
+.logo-image {
+  width: 8rem;
+  border-radius: 8rem;
 }
 
 .logo {

@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "react-query";
 import apiBase from "../../utils/apiBase";
+import useUserState from "../../Store/UserStore";
 import "./Login.css";
 
 function Login() {
@@ -11,10 +12,11 @@ function Login() {
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState(null);
 
+  const { setUser } = useUserState();
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: async function (loginData) {
+    mutationFn: async (loginData) => {
       const response = await fetch(`${apiBase}/auth/login`, {
         method: "POST",
         body: JSON.stringify(loginData),
@@ -28,7 +30,8 @@ function Login() {
         const error = await response.json();
         throw new Error(error.message);
       }
-      const data = response.json();
+
+      const data = await response.json();
       return data;
     },
   });
@@ -51,7 +54,11 @@ function Login() {
     const loginData = { emailAddress, password };
 
     mutate(loginData, {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        console.log("Login Response:", data);
+        const { user, token } = data; // Extract token from the response
+        setUser(user, token); // Set both user and token in the state
+
         toast.success("Login successful!", {
           position: "bottom-center",
           autoClose: 3000,

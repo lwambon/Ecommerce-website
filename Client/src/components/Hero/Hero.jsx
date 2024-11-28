@@ -16,7 +16,7 @@ function Hero() {
           lifestyle.
         </p>
         <Link to="/sign up" className="explore-button">
-          Start Your Journey
+          click the link to order now
         </Link>
       </div>
     </div>

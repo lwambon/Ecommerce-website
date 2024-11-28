@@ -13,6 +13,7 @@ import Beauty from "./pages/Beauty/Beauty";
 import Profile from "./pages/Profile/Profile";
 import Furniture from "./pages/Furniture/Furniture";
 import Groceries from "./pages/Groceries/Groceries";
+import Cart from "./pages/Cart/Cart";
 
 const client = new QueryClient();
 
@@ -25,6 +26,7 @@ function Main() {
         location.pathname !== "/beauty" &&
         location.pathname !== "/furniture" &&
         location.pathname !== "/groceries" &&
+        location.pathname !== "/cart" &&
         location.pathname !== "/profile" && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -34,6 +36,7 @@ function Main() {
         <Route path="/furniture" element={<Furniture />} />
         <Route path="/groceries" element={<Groceries />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/sign up" element={<Sign />} />
         <Route path="/login" element={<Login />} />
       </Routes>

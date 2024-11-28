@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
+import Logo from "../../assets/logo.png";
 import "./Header.css";
 
 function Header({ user, handleLogout }) {
@@ -7,6 +8,7 @@ function Header({ user, handleLogout }) {
     <div className="header">
       <nav className="header-container">
         <div className="logo-container">
+          <img className="logo-image" src={Logo} alt="" />
           <Link className="logo" to="/">
             Radiant Touch
           </Link>

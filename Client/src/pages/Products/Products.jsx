@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
-import "./Products.css";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import Header from "../../components/Header/Header";
+import useUserState from "../../Store/UserStore";
+import useCartState from "../../Store/cartStore";
+import apiBase from "../../utils/apiBase";
+import "./Products.css";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]); // State to track the cart
+  const { user } = useUserState();
+  const { setCart } = useCartState();
 
-  // Function to render stars based on rating
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
@@ -26,8 +29,8 @@ function Products() {
     );
   };
 
+  // Fetch products and load them into state
   useEffect(() => {
-    // Fetching the products from the dummyjson API
     fetch("https://dummyjson.com/products")
       .then((response) => response.json())
       .then((data) => {
@@ -47,16 +50,76 @@ function Products() {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-
-    // Load cart from localStorage
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(savedCart);
   }, []);
 
-  const addToCart = (product) => {
-    const updatedCart = [...cart, product];
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // Store the updated cart in localStorage
+  const addToCart = async (product) => {
+    if (!user) {
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+
+    try {
+      const checkProductResponse = await fetch(
+        `${apiBase}/products/${product.id}`,
+      );
+
+      if (!checkProductResponse.ok) {
+        const createProductResponse = await fetch(`${apiBase}/products`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            title: product.title,
+            description: product.description,
+            category: product.category,
+            price: product.price,
+            rating: product.rating,
+            brand: product.brand,
+            reviews: product.reviews.map((review) => ({
+              rating: review.rating,
+              comment: review.comment,
+              date: review.date,
+              reviewerName: review.reviewerName,
+              reviewerEmail: review.reviewerEmail,
+            })),
+          }),
+        });
+
+        if (!createProductResponse.ok) {
+          const error = await createProductResponse.json();
+          alert(`Error creating product: ${error.message}`);
+          return;
+        }
+      }
+
+      //Add the product to the cart
+      const response = await fetch(`${apiBase}/products/${user.id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          userId: user.id,
+          productId: product.id,
+          quantity: 1,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setCart((prevCart) => [...prevCart, result.cartItem]); // Update the cart state
+        alert("Item added to cart!");
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.error}`);
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart.");
+    }
   };
 
   return (
@@ -72,7 +135,7 @@ function Products() {
               <p>{product.description}</p>
               <div className="products-price">
                 <p>Price: ${product.price}</p>
-                <p>Rating: {product.rating}</p>
+                <p>Rating: {renderStars(product.rating)}</p>
               </div>
               <div className="products-brand">
                 <p>Brand: {product.brand}</p>

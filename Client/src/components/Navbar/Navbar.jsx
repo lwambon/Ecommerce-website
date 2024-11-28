@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import Logo from "../../assets/logo.png";
 import "./Navbar.css";
 
 function Navbar() {
@@ -12,6 +13,7 @@ function Navbar() {
     <div className="navbar">
       <nav className="navbar-container">
         <div className="logo-container">
+          <img className="logo-image" src={Logo} alt="" />
           <Link className="logo" to="/">
             Radiant Touch
           </Link>
