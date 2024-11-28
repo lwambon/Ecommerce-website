@@ -17,14 +17,13 @@ export async function createProduct(req, res) {
       return res.status(400).json({ error: "User not found." });
     }
 
-    // Validate required fields
+    // Validate required fields (brand is now optional)
     if (!title || !description || !category || !price) {
       return res
         .status(400)
         .json({ error: "All required fields must be provided." });
     }
 
-    // Create the product along with its reviews (if provided)
     const newProduct = await prisma.products.create({
       data: {
         title,
@@ -32,16 +31,18 @@ export async function createProduct(req, res) {
         category,
         price,
         rating,
-        brand,
+        brand: brand || null,
         owner: userId,
         reviews: {
-          create: reviews.map((review) => ({
-            rating: review.rating,
-            comment: review.comment,
-            date: new Date(review.date),
-            reviewerName: review.reviewerName,
-            reviewerEmail: review.reviewerEmail,
-          })),
+          create: reviews
+            ? reviews.map((review) => ({
+                rating: review.rating,
+                comment: review.comment,
+                date: new Date(review.date),
+                reviewerName: review.reviewerName,
+                reviewerEmail: review.reviewerEmail,
+              }))
+            : [],
         },
       },
     });

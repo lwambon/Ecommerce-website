@@ -34,7 +34,7 @@ model Products {
   category    String
   price       Float
   rating      Float
-  brand       String ?
+  brand       String?
   reviews     Review[] 
   createdAt   DateTime @default(now())
   owner       String

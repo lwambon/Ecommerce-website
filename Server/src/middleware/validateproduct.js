@@ -12,9 +12,7 @@ function validateProduct(req, res, next) {
   if (!rating) {
     return res.status(400).json({ message: "rating is required" });
   }
-  if (!brand) {
-    return res.status(400).json({ message: "brand is required" });
-  }
+
   if (!reviews) {
     return res.status(400).json({ message: "reviews is required" });
   }

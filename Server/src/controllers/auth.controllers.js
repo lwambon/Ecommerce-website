@@ -28,6 +28,7 @@ export const loginUsers = async (req, res) => {
 
     res.cookie("authToken", token, { httpOnly: true }).json({
       message: "Login successful",
+      token, // Include token in the response body
       user: {
         id: user.id,
         emailAddress: user.emailAddress,
