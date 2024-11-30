@@ -4,6 +4,7 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
 import { FaPinterest } from "react-icons/fa";
 import { FaSquareWhatsapp } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -12,11 +13,36 @@ function Footer() {
         <p className="footer-info">radiant Touch</p>
       </div>
       <ul>
-        <li>Company</li>
-        <li>product</li>
-        <li>offices</li>
-        <li>about</li>
-        <li>contact</li>
+        <li>
+          <Link to="/products" className="footer-links">
+            Products
+          </Link>
+        </li>
+        <li>
+          <Link to="/fragrance" className="footer-links">
+            Fragrance
+          </Link>
+        </li>
+        <li>
+          <Link to="/beauty" className="footer-links">
+            Beauty
+          </Link>
+        </li>
+        <li>
+          <Link to="/furniture" className="footer-links">
+            Furniture
+          </Link>
+        </li>
+        <li>
+          <Link to="/groceries" className="footer-links">
+            Groceries
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile" className="footer-links">
+            Profile
+          </Link>
+        </li>
       </ul>
       <div className="footer-social-icons">
         <div className="s0cial-icons">

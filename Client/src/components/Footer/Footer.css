@@ -47,8 +47,12 @@
     cursor: pointer;
     transition: color 0.3s ease;
   }
+  .footer-links{
+    text-decoration: none;
+    color: #ccc;
+  }
   
-  .Footer ul li:hover {
+  .footer-links:hover {
     color: #ff6f61;
   }
   

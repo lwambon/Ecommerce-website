@@ -55,17 +55,14 @@ function CartPage() {
     }
 
     try {
-      const response = await fetch(
-        `${apiBase}/cart/${user.id}/products/${itemId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await fetch(`${apiBase}/cart/${itemId}`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (response.ok) {
         setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
