@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Hero.css";
-import HeroVideo from "../../assets/video2.mp4";
+import HeroVideo from "../../assets/hero1.mp4";
 
 function Hero() {
   return (

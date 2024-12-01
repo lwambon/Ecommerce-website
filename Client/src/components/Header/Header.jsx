@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import Logo from "../../assets/logo.png";
 import "./Header.css";
+import useCartState from "../../Store/cartStore";
 
 function Header({ user, handleLogout }) {
+  const { cart } = useCartState();
+
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <div className="header">
       <nav className="header-container">
@@ -48,7 +53,7 @@ function Header({ user, handleLogout }) {
             <li className="header-item">
               <Link to="/cart" className="header-link cart-link">
                 <FaShoppingCart className="cart-icon" />
-                <span className="cart-badge">0</span>
+                <span className="cart-badge">{cartItemCount}</span>
               </Link>
             </li>
             <li className="header-item">

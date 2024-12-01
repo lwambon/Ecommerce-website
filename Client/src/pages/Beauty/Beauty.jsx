@@ -7,6 +7,7 @@ import apiBase from "../../utils/apiBase";
 
 function Beauty() {
   const [products, setProducts] = useState([]);
+  const [messages, setMessages] = useState({});
   const { user } = useUserState();
   const { setCart } = useCartState();
 
@@ -28,13 +29,12 @@ function Beauty() {
     );
   };
 
-  // Fetch products and filter them for beauty category
   useEffect(() => {
     fetch("https://dummyjson.com/products")
       .then((response) => response.json())
       .then((data) => {
         const filteredProducts = data.products
-          .filter((product) => product.category === "beauty") // Filter by "beauty" category
+          .filter((product) => product.category === "beauty")
           .map((product) => ({
             id: product.id,
             title: product.title,
@@ -55,7 +55,14 @@ function Beauty() {
 
   const addToCart = async (product) => {
     if (!user) {
-      alert("Please log in to add items to your cart.");
+      setMessages((prev) => ({
+        ...prev,
+        [product.id]: {
+          type: "error",
+          text: "Please log in to add items to your cart.",
+        },
+      }));
+      setTimeout(() => clearMessage(product.id), 3000);
       return;
     }
 
@@ -67,9 +74,7 @@ function Beauty() {
       if (!checkProductResponse.ok) {
         const createProductResponse = await fetch(`${apiBase}/products`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
             title: product.title,
@@ -90,17 +95,21 @@ function Beauty() {
 
         if (!createProductResponse.ok) {
           const error = await createProductResponse.json();
-          alert(`Error creating product: ${error.message}`);
+          setMessages((prev) => ({
+            ...prev,
+            [product.id]: {
+              type: "error",
+              text: `Error creating product: ${error.message}`,
+            },
+          }));
+          setTimeout(() => clearMessage(product.id), 3000);
           return;
         }
       }
 
-      // Add the product to the cart
       const response = await fetch(`${apiBase}/products/${user.id}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({
           userId: user.id,
@@ -111,24 +120,46 @@ function Beauty() {
 
       if (response.ok) {
         const result = await response.json();
-        setCart((prevCart) => [...prevCart, result.cartItem]); // Update the cart state
-        alert("Item added to cart!");
+        setCart((prevCart) => [...prevCart, result.cartItem]);
+        setMessages((prev) => ({
+          ...prev,
+          [product.id]: {
+            type: "success",
+            text: "Item added to cart successfully",
+          },
+        }));
+        setTimeout(() => clearMessage(product.id), 3000);
       } else {
         const error = await response.json();
-        alert(`Error: ${error.error}`);
+        setMessages((prev) => ({
+          ...prev,
+          [product.id]: { type: "error", text: `Error: ${error.error}` },
+        }));
+        setTimeout(() => clearMessage(product.id), 3000);
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("Failed to add item to cart.");
+      setMessages((prev) => ({
+        ...prev,
+        [product.id]: { type: "error", text: "Failed to add item to cart." },
+      }));
+      setTimeout(() => clearMessage(product.id), 3000);
     }
+  };
+
+  const clearMessage = (productId) => {
+    setMessages((prev) => {
+      const updatedMessages = { ...prev };
+      delete updatedMessages[productId];
+      return updatedMessages;
+    });
   };
 
   return (
     <div>
       <Header />
       <div className="products">
-        <h1>Explore Beauty Products</h1>{" "}
-        {/* Update title for the Beauty page */}
+        <h1>Explore Beauty Products</h1>
         <div className="product-list">
           {products.map((product) => (
             <div key={product.id} className="product-card">
@@ -166,6 +197,14 @@ function Beauty() {
               >
                 Add to Cart
               </button>
+
+              {messages[product.id] && (
+                <p
+                  className={`message ${messages[product.id].type === "success" ? "success-message" : "error-message"}`}
+                >
+                  {messages[product.id].text}
+                </p>
+              )}
             </div>
           ))}
         </div>

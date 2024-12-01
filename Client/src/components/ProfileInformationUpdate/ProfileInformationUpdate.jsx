@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import apiBase from "../../utils/apiBase";
-import useUserState from "../../store/userStore";
+import useUserState from "../../Store/UserStore";
 import "./ProfileInformationUpdate.css";
 
 function ProfileInformation() {
@@ -85,6 +85,11 @@ function ProfileInformation() {
       onSuccess: (data) => {
         setUser(data);
         localStorage.setItem("user", JSON.stringify(data));
+
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+
         setUpdateSuccessMessage("Profile information updated successfully!");
         toast.success("Profile information updated successfully", {
           theme: "colored",
@@ -132,13 +137,45 @@ function ProfileInformation() {
         <h2 className="title-personal-information">
           Personal Information Update
         </h2>
+
+        <div className="current-info">
+          <div className="profile-picture-section">
+            <label>Profile Picture</label>
+            <div className="current-profile-picture">
+              {profilePicture ? (
+                <img
+                  src={profilePicture}
+                  alt="Profile"
+                  className="profile-image"
+                />
+              ) : (
+                <p>No profile picture</p>
+              )}
+            </div>
+          </div>
+          <div className="profile-details">
+            <p>
+              <strong>First Name:</strong> {firstName}
+            </p>
+            <p>
+              <strong>Last Name:</strong> {lastName}
+            </p>
+            <p>
+              <strong>Phone Number:</strong> {phoneNumber}
+            </p>
+            <p>
+              <strong>Email Address:</strong> {emailAddress}
+            </p>
+          </div>
+        </div>
+
         <form
           onSubmit={handleUpdateProfileInformation}
           className="personal-information-details"
         >
           <div className="input-section">
             <div className="uploading-image-section">
-              <label htmlFor="profilePicture">Profile Picture</label>
+              <label htmlFor="profilePicture">Profile Picture (Update)</label>
               <input
                 type="file"
                 id="profilePicture"

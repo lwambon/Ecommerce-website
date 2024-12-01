@@ -11,6 +11,28 @@
   margin-bottom: 2rem;
 }
 
+.success-message {
+  background-color: #36f763;
+  color: #f5fcf6;
+  padding: 1rem;
+  margin-top: 1rem;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  width: 15rem;
+  margin: auto;
+}
+
+.error-message {
+  background-color: #ee0a1d;
+  color: #f0e4e5;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  width: 15rem;
+  margin: auto;
+}
+
 .product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

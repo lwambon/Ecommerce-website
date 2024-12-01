@@ -8,7 +8,8 @@ const useCartState = create(
         cart: [],
 
         // Set the cart from external data
-        setCart: (cartItems) => set(() => ({ cart: cartItems })),
+        setCart: (cartItems) =>
+          set(() => ({ cart: Array.isArray(cartItems) ? cartItems : [] })),
 
         // Add item to the cart
         addToCart: (item) =>
