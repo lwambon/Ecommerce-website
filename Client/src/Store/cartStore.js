@@ -7,17 +7,33 @@ const useCartState = create(
       (set) => ({
         cart: [],
 
-        // Set the cart from external data
         setCart: (cartItems) =>
           set(() => ({ cart: Array.isArray(cartItems) ? cartItems : [] })),
 
-        // Add item to the cart
         addToCart: (item) =>
+          set((state) => {
+            const existingItem = state.cart.find(
+              (cartItem) => cartItem.productId === item.productId,
+            );
+            if (existingItem) {
+              return {
+                cart: state.cart.map((cartItem) =>
+                  cartItem.productId === item.productId
+                    ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                    : cartItem,
+                ),
+              };
+            }
+            return {
+              cart: [...state.cart, { ...item, quantity: 1 }],
+            };
+          }),
+
+        removeFromCart: (productId) =>
           set((state) => ({
-            cart: [...state.cart, item],
+            cart: state.cart.filter((item) => item.productId !== productId),
           })),
 
-        // Clear the cart
         clearCart: () => set(() => ({ cart: [] })),
       }),
       { name: "cart-storage" },

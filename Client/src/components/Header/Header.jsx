@@ -3,11 +3,12 @@ import { FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import Logo from "../../assets/logo.png";
 import "./Header.css";
 import useCartState from "../../Store/cartStore";
-
-function Header({ user, handleLogout }) {
+import useUserState from "../../Store/UserStore";
+function Header({ handleLogout }) {
   const { cart } = useCartState();
-
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  const { user } = useUserState();
 
   return (
     <div className="header">
@@ -49,6 +50,11 @@ function Header({ user, handleLogout }) {
               Profile
             </Link>
           </li>
+          {user ? (
+            <li className="header-item">
+              <span className="user-name"> ✋ {user.firstName} </span>
+            </li>
+          ) : null}
           <div className="header-right">
             <li className="header-item">
               <Link to="/cart" className="header-link cart-link">
@@ -56,6 +62,7 @@ function Header({ user, handleLogout }) {
                 <span className="cart-badge">{cartItemCount}</span>
               </Link>
             </li>
+
             <li className="header-item">
               <Link to="/">
                 <button

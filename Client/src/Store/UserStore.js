@@ -4,7 +4,7 @@ import { devtools, persist } from "zustand/middleware";
 function userState(set) {
   return {
     user: null,
-    token: null, // Store the token
+    token: null,
 
     setUser: function (userInformationObj, authToken) {
       console.log("User being set:", userInformationObj);
@@ -18,7 +18,7 @@ function userState(set) {
 
     logoutUser: function () {
       set(() => {
-        return { user: null, token: null }; // Clear the token during logout
+        return { user: null, token: null };
       });
     },
   };
@@ -28,7 +28,7 @@ const useUserState = create(
   devtools(
     persist(userState, {
       name: "auth-storage",
-      getStorage: () => localStorage, // Persist data in localStorage
+      getStorage: () => localStorage,
     }),
   ),
 );
