@@ -4,8 +4,16 @@ const prisma = new PrismaClient();
 
 export async function createProduct(req, res) {
   try {
-    const { title, description, category, price, rating, brand, reviews } =
-      req.body;
+    const {
+      title,
+      image,
+      description,
+      category,
+      price,
+      rating,
+      brand,
+      reviews,
+    } = req.body;
     const userId = req.userId;
 
     // Check if the user exists
@@ -27,6 +35,7 @@ export async function createProduct(req, res) {
     const newProduct = await prisma.products.create({
       data: {
         title,
+        image,
         description,
         category,
         price,
@@ -79,7 +88,6 @@ export const getProducts = async (req, res) => {
       .json({ message: "Something went wrong while fetching products" });
   }
 };
-
 export const addToCart = async (req, res) => {
   try {
     const { userId, productId, quantity } = req.body;
@@ -165,7 +173,43 @@ export const getCartItemsByUser = async (req, res) => {
 
 export const removeCartItem = async (req, res) => {
   try {
-    const { userId, itemId } = req.params;
+    const { productId } = req.params;
+    const userId = req.userId;
+
+    const cartItem = await prisma.cart.findUnique({
+      where: {
+        userId_productId: {
+          userId: userId,
+          productId: parseInt(productId),
+        },
+      },
+    });
+
+    if (!cartItem) {
+      return res.status(404).json({ error: "Cart item not found" });
+    }
+
+    await prisma.cart.delete({
+      where: {
+        userId_productId: {
+          userId: userId,
+          productId: parseInt(productId),
+        },
+      },
+    });
+
+    res.status(200).json({ message: "Item removed from cart successfully" });
+  } catch (error) {
+    console.error("Error removing cart item:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong, please try again later" });
+  }
+};
+
+export const checkout = async (req, res) => {
+  try {
+    const { userId } = req.body;
 
     const user = await prisma.users.findUnique({
       where: { id: userId },
@@ -175,17 +219,55 @@ export const removeCartItem = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const item = await prisma.cart.delete({
-      where: { id: itemId },
+    const cartItems = await prisma.cart.findMany({
+      where: { userId },
+      include: { product: true },
     });
 
-    if (!item) {
-      return res.status(404).json({ error: "Cart item not found" });
+    if (cartItems.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "Cart is empty, nothing to checkout" });
     }
 
-    res.status(200).json({ message: "Item removed from cart" });
+    let totalAmount = 0;
+    const checkoutItems = cartItems.map((item) => {
+      totalAmount += item.product.price * item.quantity;
+      return {
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.product.price,
+        totalPrice: item.product.price * item.quantity,
+      };
+    });
+
+    const newCheckoutHistory = {
+      date: new Date(),
+      items: checkoutItems,
+      totalAmount: totalAmount,
+    };
+
+    await prisma.users.update({
+      where: { id: userId },
+      data: {
+        checkoutHistory: {
+          push: newCheckoutHistory,
+        },
+      },
+    });
+
+    await prisma.cart.deleteMany({
+      where: { userId },
+    });
+
+    res
+      .status(200)
+      .json({
+        message: "Checkout successful, cart cleared",
+        checkoutHistory: newCheckoutHistory,
+      });
   } catch (error) {
-    console.error("Error removing cart item:", error);
-    res.status(500).json({ error: "Failed to remove cart item" });
+    console.error("Error during checkout:", error);
+    res.status(500).json({ error: "Failed to process checkout" });
   }
 };

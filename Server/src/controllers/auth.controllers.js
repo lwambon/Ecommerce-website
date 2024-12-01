@@ -23,12 +23,12 @@ export const loginUsers = async (req, res) => {
       res.status(401).json({ message: "wrong email address or password" });
       return;
     }
-    // Generate token if password matches
+
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
     res.cookie("authToken", token, { httpOnly: true }).json({
       message: "Login successful",
-      token, // Include token in the response body
+      token,
       user: {
         id: user.id,
         emailAddress: user.emailAddress,

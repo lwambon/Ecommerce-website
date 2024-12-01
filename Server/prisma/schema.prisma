@@ -21,6 +21,7 @@ model Users {
   emailAddress  String     @unique
   phoneNumber   String     @unique
   password      String
+  checkoutHistory  Json? 
   products      Products[]
   carts         Cart[]     
 
@@ -30,6 +31,7 @@ model Users {
 model Products {
   id          Int      @id @default(autoincrement())
   title       String
+  image       String?
   description String
   category    String
   price       Float
@@ -40,6 +42,7 @@ model Products {
   owner       String
   user        Users    @relation(fields: [owner], references: [id])
   carts       Cart[]
+  
 
   @@map("products")
 }

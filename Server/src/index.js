@@ -15,6 +15,7 @@ import {
   addToCart,
   getCartItemsByUser,
   removeCartItem,
+  checkout,
 } from "./controllers/products.controllers.js";
 
 const app = express();
@@ -49,7 +50,9 @@ app.post("/products/:userId", verifyToken, addToCart);
 app.get("/cart/:userId", verifyToken, getCartItemsByUser);
 
 //deleting items from cart
-app.delete("/cart/:userId/products/:productId", verifyToken, removeCartItem);
+app.delete("/cart/:productId", verifyToken, removeCartItem);
+// Checkout endpoint
+app.post("/cart/checkout", verifyToken, checkout);
 
 app.listen(4000, () => {
   console.log("Server running successfully");
